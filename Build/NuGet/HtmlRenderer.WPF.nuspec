@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>HtmlRenderer.WPF</id>
+    <id>HtmlRenderer.WPF.NET5</id>
     <version>0.0.0.1</version>
     <title>HTML Renderer for WPF</title>
     <authors>Arthur Teplitzki</authors>
@@ -16,7 +16,7 @@
     <description>
       Multipurpose (UI Controls / Image generation), 100% managed (C#), High performance HTML Rendering library for WPF.
 
-      HTML UI in .NET WPF applications using controls or static rendering.
+      HTML UI in .NET5 WPF applications using controls or static rendering.
 
       Features and Benefits:
       ---
@@ -27,10 +27,13 @@
       * Support separating CSS from HTML by loading stylesheet code separately.
       * Support text selection, copy-paste and context menu.
       * Handles "real world" malformed HTML, it doesn't have to be XHTML.
-      * Supports .NET 3.0 or higher including Client Profile.
+      * Supports .NET 5.0 or higher including Client Profile.
       * Lightweight, only two DLLs (~300K).
       * High performance and low memory footprint.
       * Extendable and configurable.
+	  
+	  ---
+	  Modified version of the original HtmlRender project to support .NET5.0	  
     </description>
     <releaseNotes>See http://htmlrenderer.codeplex.com/releases.</releaseNotes>
     <tags>html render renderer draw control WPF</tags>
@@ -38,18 +41,11 @@
       <frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
     </frameworkAssemblies>
     <dependencies>
-      <dependency id="HtmlRenderer.Core" version="1.5.1-beta1"/>
+      <dependency id="HtmlRenderer.Core.NET5" version="1.0.0.0"/>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Release\WPF\net30\HtmlRenderer.WPF.dll" target="lib\net30\HtmlRenderer.WPF.dll" />
-    <file src="..\Release\WPF\net30\HtmlRenderer.WPF.pdb" target="lib\net30\HtmlRenderer.WPF.pdb" />
-    <file src="..\Release\WPF\net35\HtmlRenderer.WPF.dll" target="lib\net35-client\HtmlRenderer.WPF.dll" />
-    <file src="..\Release\WPF\net35\HtmlRenderer.WPF.pdb" target="lib\net35-client\HtmlRenderer.WPF.pdb" />
-    <file src="..\Release\WPF\net40\HtmlRenderer.WPF.dll" target="lib\net40-client\HtmlRenderer.WPF.dll" />
-    <file src="..\Release\WPF\net40\HtmlRenderer.WPF.pdb" target="lib\net40-client\HtmlRenderer.WPF.pdb" />
-    <file src="..\Release\WPF\net45\HtmlRenderer.WPF.dll" target="lib\net45\HtmlRenderer.WPF.dll" />
-    <file src="..\Release\WPF\net45\HtmlRenderer.WPF.pdb" target="lib\net45\HtmlRenderer.WPF.pdb" />
-    <file src="HtmlRenderer.WPF.readme.txt" target="readme.txt" />
+    <file src="..\..\Source\HtmlRenderer.WPF\bin\Release\net5.0-windows\HtmlRenderer.WPF.dll" target="lib\net50\HtmlRenderer.WPF.dll" />
+    <file src="..\..\Source\HtmlRenderer.WPF\bin\Release\net5.0-windows\HtmlRenderer.WPF.pdb" target="lib\net50\HtmlRenderer.WPF.pdb" />    
   </files>
 </package>
