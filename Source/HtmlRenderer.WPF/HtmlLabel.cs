@@ -81,19 +81,17 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         {
             if (_htmlContainer != null)
             {
-                using (var ig = new GraphicsAdapter())
-                {
-                    var horizontal = Padding.Left + Padding.Right + BorderThickness.Left + BorderThickness.Right;
-                    var vertical = Padding.Top + Padding.Bottom + BorderThickness.Top + BorderThickness.Bottom;
+                using var ig = new GraphicsAdapter();
+                var horizontal = Padding.Left + Padding.Right + BorderThickness.Left + BorderThickness.Right;
+                var vertical = Padding.Top + Padding.Bottom + BorderThickness.Top + BorderThickness.Bottom;
 
-                    var size = new RSize(constraint.Width < Double.PositiveInfinity ? constraint.Width - horizontal : 0, constraint.Height < Double.PositiveInfinity ? constraint.Height - vertical : 0);
-                    var minSize = new RSize(MinWidth < Double.PositiveInfinity ? MinWidth - horizontal : 0, MinHeight < Double.PositiveInfinity ? MinHeight - vertical : 0);
-                    var maxSize = new RSize(MaxWidth < Double.PositiveInfinity ? MaxWidth - horizontal : 0, MaxHeight < Double.PositiveInfinity ? MaxHeight - vertical : 0);
+                var size = new RSize(constraint.Width < Double.PositiveInfinity ? constraint.Width - horizontal : 0, constraint.Height < Double.PositiveInfinity ? constraint.Height - vertical : 0);
+                var minSize = new RSize(MinWidth < Double.PositiveInfinity ? MinWidth - horizontal : 0, MinHeight < Double.PositiveInfinity ? MinHeight - vertical : 0);
+                var maxSize = new RSize(MaxWidth < Double.PositiveInfinity ? MaxWidth - horizontal : 0, MaxHeight < Double.PositiveInfinity ? MaxHeight - vertical : 0);
 
-                    var newSize = HtmlRendererUtils.Layout(ig, _htmlContainer.HtmlContainerInt, size, minSize, maxSize, AutoSize, AutoSizeHeightOnly);
+                var newSize = HtmlRendererUtils.Layout(ig, _htmlContainer.HtmlContainerInt, size, minSize, maxSize, AutoSize, AutoSizeHeightOnly);
 
-                    constraint = new Size(newSize.Width + horizontal, newSize.Height + vertical);
-                }
+                constraint = new Size(newSize.Width + horizontal, newSize.Height + vertical);
             }
 
             if (double.IsPositiveInfinity(constraint.Width) || double.IsPositiveInfinity(constraint.Height))
@@ -107,8 +105,7 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         /// </summary>
         private static void OnDependencyProperty_valueChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            var control = dependencyObject as HtmlLabel;
-            if (control != null)
+            if (dependencyObject is HtmlLabel control)
             {
                 if (e.Property == AutoSizeProperty)
                 {

@@ -247,7 +247,7 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         /// <returns>generated html</returns>
         public virtual string GetHtml()
         {
-            return _htmlContainer != null ? _htmlContainer.GetHtml() : null;
+            return _htmlContainer?.GetHtml();
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         /// <returns>the rectangle of the element or null if not found</returns>
         public virtual Rect? GetElementRectangle(string elementId)
         {
-            return _htmlContainer != null ? _htmlContainer.GetElementRectangle(elementId) : null;
+            return _htmlContainer?.GetElementRectangle(elementId);
         }
 
         /// <summary>
@@ -467,8 +467,7 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         /// </summary>
         private static void OnDependencyProperty_valueChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            var control = dependencyObject as HtmlControl;
-            if (control != null)
+            if (dependencyObject is HtmlControl control)
             {
                 var htmlContainer = control._htmlContainer;
                 if (e.Property == AvoidImagesLateLoadingProperty)

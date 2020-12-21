@@ -47,8 +47,10 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         /// </summary>
         public HtmlContainer()
         {
-            _htmlContainerInt = new HtmlContainerInt(WpfAdapter.Instance);
-            _htmlContainerInt.PageSize = new RSize(99999, 99999);
+            _htmlContainerInt = new HtmlContainerInt(WpfAdapter.Instance)
+            {
+                PageSize = new RSize(99999, 99999)
+            };
         }
 
         /// <summary>
@@ -348,10 +350,8 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         /// </summary>
         public void PerformLayout()
         {
-            using (var ig = new GraphicsAdapter())
-            {
-                _htmlContainerInt.PerformLayout(ig);
-            }
+            using var ig = new GraphicsAdapter();
+            _htmlContainerInt.PerformLayout(ig);
         }
 
         /// <summary>
@@ -363,10 +363,8 @@ namespace TheArtOfDev.HtmlRenderer.WPF
         {
             ArgChecker.AssertArgNotNull(g, "g");
 
-            using (var ig = new GraphicsAdapter(g, Utils.Convert(clip)))
-            {
-                _htmlContainerInt.PerformPaint(ig);
-            }
+            using var ig = new GraphicsAdapter(g, Utils.Convert(clip));
+            _htmlContainerInt.PerformPaint(ig);
         }
 
         /// <summary>

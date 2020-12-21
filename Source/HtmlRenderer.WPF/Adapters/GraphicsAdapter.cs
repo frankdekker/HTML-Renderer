@@ -81,10 +81,12 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
 
         public override void PushClipExclude(RRect rect)
         {
-            var geometry = new CombinedGeometry();
-            geometry.Geometry1 = new RectangleGeometry(Utils.Convert(_clipStack.Peek()));
-            geometry.Geometry2 = new RectangleGeometry(Utils.Convert(rect));
-            geometry.GeometryCombineMode = GeometryCombineMode.Exclude;
+            var geometry = new CombinedGeometry
+            {
+                Geometry1 = new RectangleGeometry(Utils.Convert(_clipStack.Peek())),
+                Geometry2 = new RectangleGeometry(Utils.Convert(rect)),
+                GeometryCombineMode = GeometryCombineMode.Exclude
+            };
 
             _clipStack.Push(_clipStack.Peek());
             _g.PushClip(geometry);
@@ -122,7 +124,8 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
 
             if (width <= 0)
             {
-                var formattedText = new FormattedText(str, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, ((FontAdapter)font).Font, 96d / 72d * font.Size, Brushes.Red);
+
+                var formattedText = new FormattedText(str, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, ((FontAdapter)font).Font, 96d / 72d * font.Size, Brushes.Red, 1);
                 return new RSize(formattedText.WidthIncludingTrailingWhitespace, formattedText.Height);
             }
 
@@ -164,7 +167,7 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
 
             if (!handled)
             {
-                var formattedText = new FormattedText(str, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, ((FontAdapter)font).Font, 96d / 72d * font.Size, Brushes.Red);
+                var formattedText = new FormattedText(str, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, ((FontAdapter)font).Font, 96d / 72d * font.Size, Brushes.Red, 1);
                 charFit = str.Length;
                 charFitWidth = formattedText.WidthIncludingTrailingWhitespace;
             }
@@ -200,14 +203,14 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
                     point.X += rtl ? 96d / 72d * font.Size * width : 0;
 
                     glyphRendered = true;
-                    var glyphRun = new GlyphRun(glyphTypeface, rtl ? 1 : 0, false, 96d / 72d * font.Size, glyphs, Utils.ConvertRound(point), widths, null, null, null, null, null, null);
+                    var glyphRun = new GlyphRun(glyphTypeface, rtl ? 1 : 0, false, 96d / 72d * font.Size, 1, glyphs, Utils.ConvertRound(point), widths, null, null, null, null, null, null);
                     _g.DrawGlyphRun(colorConv, glyphRun);
                 }
             }
 
             if (!glyphRendered)
             {
-                var formattedText = new FormattedText(str, CultureInfo.CurrentCulture, rtl ? FlowDirection.RightToLeft : FlowDirection.LeftToRight, ((FontAdapter)font).Font, 96d / 72d * font.Size, colorConv);
+                var formattedText = new FormattedText(str, CultureInfo.CurrentCulture, rtl ? FlowDirection.RightToLeft : FlowDirection.LeftToRight, ((FontAdapter)font).Font, 96d / 72d * font.Size, colorConv, 1);
                 point.X += rtl ? formattedText.Width : 0;
                 _g.DrawText(formattedText, Utils.ConvertRound(point));
             }
@@ -215,12 +218,14 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
 
         public override RBrush GetTextureBrush(RImage image, RRect dstRect, RPoint translateTransformLocation)
         {
-            var brush = new ImageBrush(((ImageAdapter)image).Image);
-            brush.Stretch = Stretch.None;
-            brush.TileMode = TileMode.Tile;
-            brush.Viewport = Utils.Convert(dstRect);
-            brush.ViewportUnits = BrushMappingMode.Absolute;
-            brush.Transform = new TranslateTransform(translateTransformLocation.X, translateTransformLocation.Y);
+            var brush = new ImageBrush(((ImageAdapter)image).Image)
+            {
+                Stretch = Stretch.None,
+                TileMode = TileMode.Tile,
+                Viewport = Utils.Convert(dstRect),
+                ViewportUnits = BrushMappingMode.Absolute,
+                Transform = new TranslateTransform(translateTransformLocation.X, translateTransformLocation.Y)
+            };
             brush.Freeze();
             return new BrushAdapter(brush);
         }
@@ -269,7 +274,7 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
                 x += .5;
                 y += .5;
             }
-            
+
             _g.DrawRectangle(null, ((PenAdapter)pen).CreatePen(), new Rect(x, y, width, height));
         }
 
